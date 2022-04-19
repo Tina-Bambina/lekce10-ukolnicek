@@ -28,7 +28,6 @@ nactiUkoly()
 
 // funkce pro načtení seznamu úkolů z Local Storage
 function nactiUkoly() {
-	console.log('bu')
 	let hodnota = localStorage.ukoly;
 	if(hodnota === null || hodnota === undefined){
 		ukoly = [];
@@ -66,5 +65,17 @@ function odstranUkol() {
 
 // funkce pro přidání úkolu do seznamu
 function pridejUkol() {
+	let popis = document.querySelector('#popis').value;
+	let dulezitost = document.querySelector('#dulezitost').value;
+	if (popis === ''){
+		alert('Prosim, zadej popis ukolu.');
+		return;
+	}
 
+	let ukol = {};
+	ukol.popis = popis;
+	ukol.dulezitost = dulezitost;
+
+	ukoly.push(ukol);
+	ulozUkoly();
 }
