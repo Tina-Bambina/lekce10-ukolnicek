@@ -49,7 +49,7 @@ function zobrazUkoly() {
 	seznam.innerHTML = '';
 	if(ukoly.length>0){
 		for(let i = 0; i<ukoly.length; i++){
-			let ukol = vytvorPrvekUkolu(i, ukoly[i].popis, ukoly [i].dulezitost);
+			let ukol = vytvorPrvekUkolu(i, ukoly[i].popis, ukoly[i].dulezitost, ukoly[i].datum);
 			seznam.appendChild(ukol)
 		}
 	}
@@ -58,9 +58,9 @@ function zobrazUkoly() {
 
 // funkce, která vytvoří HTML prvky jednoho úkolu
 // jako parametry očekává index úkolu v poli, popis a důležitost úkolu
-function vytvorPrvekUkolu(index, popis, dulezitost) {
+function vytvorPrvekUkolu(index, popis, dulezitost, datum) {
 	let liElement = document.createElement('li');
-	liElement.textContent = `${popis} - ${dulezitost} dulezitost`;
+	liElement.textContent = `${popis} - ${dulezitost} dulezitost  - spln do ${datum} `;
 	let buttonElement = document.createElement('button');
 	buttonElement.textContent = 'x';
 	buttonElement.dataset.index = index;
@@ -83,14 +83,20 @@ function odstranUkol() {
 function pridejUkol() {
 	let popis = document.querySelector('#popis').value;
 	let dulezitost = document.querySelector('#dulezitost').value;
+	let datum = document.querySelector('#datum').value;
 	if (popis === ''){
 		alert('Prosim, zadej popis ukolu.');
+		return;}
+
+	if (datum === ''){
+		alert('Prosim, zadej deadline ukolu.');
 		return;
 	}
 
 	let ukol = {};
 	ukol.popis = popis;
 	ukol.dulezitost = dulezitost;
+	ukol.datum = datum;
 
 	ukoly.push(ukol);
 	ulozUkoly();
